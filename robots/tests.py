@@ -57,7 +57,7 @@ class RobotsTest(TestCase):
         """
 
         # Имитация успешного вызова команды и существования файла
-        mock_call_command.return_value = 'weekly_report_2024-12-10_to_2024-12-17.xlsx'
+        mock_call_command.return_value = '/media/weekly_report_2024-12-10_to_2024-12-17.xlsx'
         mock_exists.return_value = True
 
         # Выполнение запроса
@@ -70,12 +70,13 @@ class RobotsTest(TestCase):
         self.assertEqual(response['Content-Type'], 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
         # Проверка заголовков
-        self.assertEqual(response['Content-Disposition'], 'attachment; filename=weekly_report_2024-12-10_to_2024-12-17.xlsx')
+        self.assertEqual(response['Content-Disposition'],
+                         'attachment; filename=weekly_report_2024-12-10_to_2024-12-17.xlsx')
 
         # Проверка содержимого ответа (сообщение)
         expected_message = "Отчет 'weekly_report_2024-12-10_to_2024-12-17.xlsx' успешно создан и готов для скачивания."
         self.assertIn(expected_message.encode('utf-8'),
-                      response.content)  # Преобразуем строку в bytes с кодировкой utf-8
+                      response.content)
 
     @patch('django.core.management.call_command')
     @patch('os.path.exists')

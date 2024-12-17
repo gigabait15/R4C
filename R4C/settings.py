@@ -134,3 +134,35 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 NULLABLE = {'blank': False, 'null': False}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if DEBUG:
+    # Настройки для Celery
+    CELERY_BROKER_URL = "redis://localhost:6380"
+    CELERY_RESULT_BACKEND = "redis://localhost:6380"
+    CELERY_ACCEPT_CONTENT = ['json']
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_TIMEZONE = 'UTC'
+
+    # Для Celery Beat (для планирования задач)
+    CELERY_BEAT_SCHEDULE = {
+        'check-robot-availability-daily': {
+            'task': 'orders.tasks.check_robot_availability',
+            'schedule': 3600.0,  # 1 час
+        },
+    }
+
+# Настройки почты
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# Хост и порт SMTP-сервера Яндекса
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+# данные почты. настройка сделана для почты яндекс, при необходимости можно изменить настройки
+# для другого почтового сервиса
+EMAIL_HOST_USER = ''
+# Пароль от почты. здесь требуется пароль, который создается при настройки на почте сторонних подсключений(IMAP)
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
