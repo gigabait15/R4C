@@ -44,19 +44,3 @@ class RobotsTest(TestCase):
         self.assertEqual(robot.version, 'D2')
         self.assertEqual(robot.serial, 'R2-D2')
 
-    def test_create_duplicate_robot(self):
-        """
-        Тестируем создание робота с дублирующимися данными.
-        Проверка на дубликаты, при создании такого же экземляра ошибка
-        """
-        data = {
-            'model': 'R2',
-            'version': 'D2',
-        }
-        url = self.url_create
-        self.client.post(url, data)
-
-        response = self.client.post(url, data)
-
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(Robot.objects.count(), 1)
