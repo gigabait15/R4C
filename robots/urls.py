@@ -8,5 +8,5 @@ app_name = RobotsConfig.name
 urlpatterns = [
     path('view_robots/', RobotsView.as_view(), name='view_robots'),
     path('create_robot/', CreateRobotView.as_view(), name='create_robot'),
-    path('download-weekly-report/', download_weekly_report, name='download_weekly_report'),
+    path('download_weekly_report/', download_weekly_report, name='download_weekly_report'),
 ]
