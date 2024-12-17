@@ -6,16 +6,18 @@ class Robot(models.Model):
     """
     Модель для создание БД
     Имеет следующие поля:
-        serial - текстовый формат поля. флаг unique указывает на уникальность,
+        serial - текстовый формат поля.
             что предотвращает создание модели с таким же номером
         model - текстовый формат поля, обязательный к заполнению.
         version - текстовый формат поля, обязательный к заполнению.
         created - поле формата дата и время. флаг auto_now_add добавляет дату создания автоматически
+        sold - поле булеевого формата. по умолчанию False
     """
-    serial = models.CharField(max_length=5, unique=True)
+    serial = models.CharField(max_length=5, **NULLABLE)
     model = models.CharField(max_length=2, **NULLABLE)
     version = models.CharField(max_length=2, **NULLABLE)
     created = models.DateTimeField(auto_now_add=True)
+    sold = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Robot'

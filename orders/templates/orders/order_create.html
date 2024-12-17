@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Создание нового робота</title>
+    <title>Создание нового заказа</title>
 </head>
 <body>
-    <h1>Создание нового робота</h1>
+    <h1>Создание нового заказа</h1>
 
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Создать робота</button>
+
+        <button type="submit">Создать заказ</button>
     </form>
 
     <br>
-    <a href="{% url 'robots:view_robots' %}">Вернуться к списку роботов</a>
+    <a href="{% url 'order_list' %}">Вернуться к списку заказов</a>
 
     {% if form.errors %}
         <div style="color: red;">

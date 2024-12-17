@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список роботов</title>
 </head>
 <body>
+    <h1>Список роботов</h1>
 
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Серия</th>
+                <th>Модель</th>
+                <th>Версия</th>
+                <th>Дата производства</th>
+                <th>Наличие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for robot in object_list %}
+                <tr>
+                    <td>{{ robot.id }}</td>
+                    <td>{{ robot.serial }}</td>
+                    <td>{{ robot.model }}</td>
+                    <td>{{ robot.version }}</td>
+                    <td>{{ robot.created|date:"d-m-Y H:i" }}</td>
+                    <td>
+                        {% if robot.sold %}
+                            нет в наличии
+                        {% else %}
+                            в наличии
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{% url 'robots:create_robot' %}">Создать нового робота</a>
+    <div></div>
+    <a href="{% url 'robots:download_weekly_report' %}">
+        <button type="button">Скачать отчет</button>
+    </a>
 </body>
 </html>
